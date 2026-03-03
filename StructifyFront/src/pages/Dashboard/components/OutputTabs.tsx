@@ -5,6 +5,8 @@ import {
     ApartmentOutlined,
     FileTextOutlined,
 } from '@ant-design/icons';
+import ERDiagramView from './ERDiagramView';
+import ClassDiagramView from './ClassDiagramView';
 import type { GeneratedResult } from '../types';
 
 interface OutputTabsProps {
@@ -22,13 +24,7 @@ const OutputTabs: FC<OutputTabsProps> = ({ result }) => {
             ),
             children: (
                 <Card variant="borderless" style={{ minHeight: 400 }}>
-                    {result ? (
-                        <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
-                            {JSON.stringify(result.entities, null, 2)}
-                        </pre>
-                    ) : (
-                        <Empty description="Generate an architecture to see the ER Diagram" />
-                    )}
+                    <ERDiagramView result={result} />
                 </Card>
             ),
         },
@@ -41,13 +37,7 @@ const OutputTabs: FC<OutputTabsProps> = ({ result }) => {
             ),
             children: (
                 <Card variant="borderless" style={{ minHeight: 400 }}>
-                    {result ? (
-                        <pre style={{ whiteSpace: 'pre-wrap', margin: 0 }}>
-                            {JSON.stringify(result.relationships, null, 2)}
-                        </pre>
-                    ) : (
-                        <Empty description="Generate an architecture to see the Class Diagram" />
-                    )}
+                    <ClassDiagramView result={result} />
                 </Card>
             ),
         },
