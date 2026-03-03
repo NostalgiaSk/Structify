@@ -1,8 +1,9 @@
 import { type FC, useState, useCallback } from 'react';
-import { Layout, Row, Col } from 'antd';
+import { Layout, Row, Col, message } from 'antd';
 import TopNavbar from './components/TopNavbar';
 import InputPanel from './components/InputPanel';
 import OutputTabs from './components/OutputTabs';
+import { generateArchitecture } from '../../services/generate.service';
 import type { GeneratedResult } from './types';
 
 const { Content } = Layout;
@@ -12,14 +13,19 @@ const DashboardPage: FC = () => {
     const [loading, setLoading] = useState<boolean>(false);
     const [generatedResult, setGeneratedResult] = useState<GeneratedResult | null>(null);
 
-    const handleGenerate = useCallback(() => {
+    const handleGenerate = useCallback(async () => {
         if (!description.trim()) return;
+
         setLoading(true);
-        // Placeholder: simulate generation delay
-        setTimeout(() => {
+        try {
+            const result = await generateArchitecture(description);
+            setGeneratedResult(result);
+        } catch (error: unknown) {
+            const errorMessage = error instanceof Error ? error.message : 'An unexpected error occurred';
+            message.error(errorMessage);
+        } finally {
             setLoading(false);
-            setGeneratedResult(null);
-        }, 1500);
+        }
     }, [description]);
 
     const handleClear = useCallback(() => {
