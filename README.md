@@ -4,8 +4,12 @@ Turn product ideas into backend architecture in seconds.
 ## Features
 
 - **AI-Powered Architecture Generation**: Uses Groq AI (Llama 3.3 70B) to analyze your project description and generate a complete backend architecture.
-- **Entity-Relationship Diagrams**: Visualizes the database schema with entities, attributes, and relationships.
-- **Class Diagrams**: Generates class diagrams to represent the object-oriented structure of your application.
+- **Multiple Diagram Types**:
+  - **Entity-Relationship Diagrams**: Visualizes the database schema with entities, attributes, and relationships.
+  - **Class Diagrams**: Generates class diagrams to represent the object-oriented structure of your application.
+  - **Sequence Diagrams**: Shows the flow of requests and responses between system components.
+  - **System Architecture Diagrams**: High-level structural flowchart of your service integration.
+- **Export Capabilities**: Export any generated diagram natively as **SVG** or high-resolution **PNG**.
 - **Architecture Notes**: Provides detailed insights and recommendations for your architecture.
 - **Modern UI**: Clean, intuitive interface built with React and Ant Design.
 - **Fast & Responsive**: Built with Vite for a snappy development experience.
@@ -21,7 +25,7 @@ Turn product ideas into backend architecture in seconds.
 ### Frontend
 - **React**
 - **Ant Design**
-- **Mermaid** (for diagrams)
+- **Mermaid** (for multiple diagram types)
 - **TypeScript**
 
 ## Getting Started
@@ -80,7 +84,8 @@ Turn product ideas into backend architecture in seconds.
 1. Open [http://localhost:5173](http://localhost:5173) in your browser.
 2. Enter a project description in the text area.
 3. Click **Generate Architecture**.
-4. View the generated ER Diagram, Class Diagram, and Architecture Notes in the tabs below.
+4. View the generated ER Diagram, Class Diagram, Sequence Diagram, Architecture Diagram, and Notes in the output tabs.
+5. Use the **Export Diagram** button above any diagram to save it as SVG or PNG.
 
 ## License
 
