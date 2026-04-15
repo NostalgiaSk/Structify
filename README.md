@@ -1,32 +1,35 @@
 
-Turn product ideas into backend architecture in seconds.
+# Structify
+
+Turn product ideas into backend architecture in seconds — then refine them interactively.
 
 ## Features
 
 - **AI-Powered Architecture Generation**: Uses Groq AI (Llama 3.3 70B) to analyze your project description and generate a complete backend architecture.
-- **Multiple Diagram Types**:
-  - **Entity-Relationship Diagrams**: Visualizes the database schema with entities, attributes, and relationships.
-  - **Class Diagrams**: Generates class diagrams to represent the object-oriented structure of your application.
-  - **Sequence Diagrams**: Shows the flow of requests and responses between system components.
-  - **System Architecture Diagrams**: High-level structural flowchart of your service integration.
-- **Export Capabilities**: Export any generated diagram natively as **SVG** or high-resolution **PNG**.
-- **Architecture Notes**: Provides detailed insights and recommendations for your architecture.
-- **Modern UI**: Clean, intuitive interface built with React and Ant Design.
-- **Fast & Responsive**: Built with Vite for a snappy development experience.
+- **Multi-Diagram Visualizations**: ER Diagrams, Class Diagrams, Sequence Diagrams, and Architecture Diagrams — all rendered with Mermaid.js.
+- **Interactive Architecture Editor**: Toggle Edit Mode to modify the generated architecture directly in the UI.
+  - Rename entities
+  - Add, edit, and remove attributes (name, type, primary key)
+  - Add, edit, and delete entities
+  - Add, edit, and remove relationships (from, to, type)
+  - Entity name changes automatically cascade to all related relationships
+- **Save & Reset Workflow**: Changes are applied to diagrams only when you click **Save Changes**. Click **Reset** to revert to the original generated architecture.
+- **Diagram Export**: Export any diagram as SVG or PNG.
+- **Architecture Notes**: AI-generated insights and recommendations for your architecture.
+- **Modern UI**: Clean, dark-themed interface built with React and Ant Design.
 
 ## Tech Stack
 
 ### Backend
-- **Node.js**
-- **Express.js**
+- **Node.js** + **Express.js**
 - **Groq AI** (Llama 3.3 70B)
 - **TypeScript**
 
 ### Frontend
-- **React**
-- **Ant Design**
-- **Mermaid** (for multiple diagram types)
-- **TypeScript**
+- **React 18** + **TypeScript**
+- **Ant Design** (UI components)
+- **Mermaid.js** (diagram rendering)
+- **Vite** (build tool)
 
 ## Getting Started
 
@@ -47,7 +50,7 @@ Turn product ideas into backend architecture in seconds.
    cd StructifyBack
    npm install
    ```
-   Create a `.env` file in the `StructifyBack` directory with your Groq API key:
+   Create a `.env` file in the `StructifyBack` directory:
    ```env
    GROQ_API_KEY=your_groq_api_key_here
    PORT=4000
@@ -82,11 +85,46 @@ Turn product ideas into backend architecture in seconds.
 ## Usage
 
 1. Open [http://localhost:5173](http://localhost:5173) in your browser.
-2. Enter a project description in the text area.
-3. Click **Generate Architecture**.
-4. View the generated ER Diagram, Class Diagram, Sequence Diagram, Architecture Diagram, and Notes in the output tabs.
-5. Use the **Export Diagram** button above any diagram to save it as SVG or PNG.
+2. Enter a project description and click **Generate Architecture**.
+3. View the generated diagrams (ER, Class, Sequence, Architecture) and notes in the output tabs.
+4. Toggle **Edit Mode** to modify the architecture:
+   - Edit entity names, attributes, and relationships using the editor panels.
+   - Click **Save Changes** to apply edits to all diagrams.
+   - Click **Reset** to revert to the original generated architecture.
+5. Export any diagram as SVG or PNG using the **Export** dropdown.
+
+## Project Structure
+
+```
+Structify/
+├── StructifyBack/          # Express + Groq AI backend
+│   └── src/
+│       └── server.ts
+├── StructifyFront/         # React + Vite frontend
+│   └── src/
+│       ├── components/
+│       │   └── diagram/
+│       │       └── MermaidRenderer.tsx
+│       ├── pages/
+│       │   └── Dashboard/
+│       │       ├── DashboardPage.tsx
+│       │       ├── types.ts
+│       │       └── components/
+│       │           ├── InputPanel.tsx
+│       │           ├── OutputTabs.tsx
+│       │           ├── EntityEditor.tsx
+│       │           ├── RelationshipEditor.tsx
+│       │           └── TopNavbar.tsx
+│       ├── services/
+│       └── utils/
+│           ├── classDiagramGenerator.ts
+│           ├── erDiagramGenerator.ts
+│           ├── sequenceDiagramGenerator.ts
+│           └── architectureDiagramGenerator.ts
+└── README.md
+```
 
 ## License
 
 ISC
+

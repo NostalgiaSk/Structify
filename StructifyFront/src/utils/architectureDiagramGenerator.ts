@@ -26,7 +26,8 @@ export function generateArchitectureDiagram(result: GeneratedResult): string {
     const lines: string[] = ['flowchart TD'];
 
     // Declare nodes with entity name only for a clean architecture view
-    result.entities.forEach((entity) => {
+    const validEntities = result.entities.filter((e) => sanitize(e.name));
+    validEntities.forEach((entity) => {
         const id = sanitize(entity.name);
         lines.push(`    ${id}["${entity.name}"]`);
     });
@@ -34,8 +35,12 @@ export function generateArchitectureDiagram(result: GeneratedResult): string {
     lines.push('');
 
     // Draw edges from relationships
-    if (result.relationships.length > 0) {
-        result.relationships.forEach((rel) => {
+    const validRelationships = result.relationships.filter(
+        (rel) => sanitize(rel.from) && sanitize(rel.to),
+    );
+
+    if (validRelationships.length > 0) {
+        validRelationships.forEach((rel) => {
             const from = sanitize(rel.from);
             const to = sanitize(rel.to);
             const arrow = RELATIONSHIP_ARROW[rel.type] ?? '-->';
@@ -44,9 +49,9 @@ export function generateArchitectureDiagram(result: GeneratedResult): string {
         });
     } else {
         // Fallback: chain entities top-down
-        for (let i = 0; i < result.entities.length - 1; i++) {
-            const from = sanitize(result.entities[i].name);
-            const to = sanitize(result.entities[i + 1].name);
+        for (let i = 0; i < validEntities.length - 1; i++) {
+            const from = sanitize(validEntities[i].name);
+            const to = sanitize(validEntities[i + 1].name);
             lines.push(`    ${from} --> ${to}`);
         }
     }

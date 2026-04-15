@@ -46,3 +46,57 @@ body {
 .ant-btn-primary:hover {
   box-shadow: 0 4px 16px rgba(99, 102, 241, 0.45);
 }
+
+/* Edit Mode Toggle */
+.edit-mode-toggle {
+  margin-top: 16px;
+  padding: 12px 16px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+/* Entity Editor Panel */
+.entity-editor-panel {
+  margin-top: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  max-height: calc(100vh - 360px);
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+}
+
+.entity-editor-panel::-webkit-scrollbar {
+  width: 6px;
+}
+
+.entity-editor-panel::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.entity-editor-panel::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.3);
+  border-radius: 3px;
+}
+
+.entity-editor-panel::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.5);
+}
+
+/* Attribute Row */
+.attribute-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 8px;
+  background: rgba(255, 255, 255, 0.02);
+  border-radius: 6px;
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  transition: border-color 0.2s ease;
+}
+
+.attribute-row:hover {
+  border-color: rgba(99, 102, 241, 0.2);
+}

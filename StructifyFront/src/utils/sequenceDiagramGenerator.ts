@@ -14,7 +14,8 @@ export function generateSequenceDiagram(result: GeneratedResult): string {
     const lines: string[] = ['sequenceDiagram'];
 
     // Declare participants
-    result.entities.forEach((entity) => {
+    const validEntities = result.entities.filter((e) => sanitize(e.name));
+    validEntities.forEach((entity) => {
         const safeName = sanitize(entity.name);
         lines.push(`    participant ${safeName}`);
     });
@@ -22,8 +23,12 @@ export function generateSequenceDiagram(result: GeneratedResult): string {
     lines.push('');
 
     // Generate interactions from relationships
-    if (result.relationships.length > 0) {
-        result.relationships.forEach((rel) => {
+    const validRelationships = result.relationships.filter(
+        (rel) => sanitize(rel.from) && sanitize(rel.to),
+    );
+
+    if (validRelationships.length > 0) {
+        validRelationships.forEach((rel) => {
             const from = sanitize(rel.from);
             const to = sanitize(rel.to);
 
@@ -44,9 +49,9 @@ export function generateSequenceDiagram(result: GeneratedResult): string {
         });
     } else {
         // Fallback: chain entities together
-        for (let i = 0; i < result.entities.length - 1; i++) {
-            const from = sanitize(result.entities[i].name);
-            const to = sanitize(result.entities[i + 1].name);
+        for (let i = 0; i < validEntities.length - 1; i++) {
+            const from = sanitize(validEntities[i].name);
+            const to = sanitize(validEntities[i + 1].name);
             lines.push(`    ${from}->>+${to}: request`);
             lines.push(`    ${to}-->>-${from}: response`);
         }

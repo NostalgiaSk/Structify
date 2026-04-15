@@ -12,7 +12,9 @@ function sanitize(name: string): string {
 
 function generateEntityBlock(entity: Entity): string {
     const safeName = sanitize(entity.name);
+    if (!safeName) return '';
     const attributes = entity.attributes
+        .filter((attr) => attr.name.trim() && attr.type.trim())
         .map((attr) => {
             const prefix = attr.isPrimary ? '+' : '';
             return `    ${prefix}${attr.type} ${attr.name}`;
@@ -25,6 +27,7 @@ function generateEntityBlock(entity: Entity): string {
 function generateRelationshipLine(relationship: Relationship): string {
     const from = sanitize(relationship.from);
     const to = sanitize(relationship.to);
+    if (!from || !to) return '';
     const notation = RELATIONSHIP_NOTATION[relationship.type];
     return `  ${from}${notation}${to}`;
 }
@@ -33,13 +36,15 @@ export function generateClassDiagram(result: GeneratedResult): string {
     const lines: string[] = ['classDiagram'];
 
     result.entities.forEach((entity) => {
-        lines.push(generateEntityBlock(entity));
+        const block = generateEntityBlock(entity);
+        if (block) lines.push(block);
     });
 
     lines.push('');
 
     result.relationships.forEach((relationship) => {
-        lines.push(generateRelationshipLine(relationship));
+        const line = generateRelationshipLine(relationship);
+        if (line) lines.push(line);
     });
 
     return lines.join('\n');

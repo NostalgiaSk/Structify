@@ -1,10 +1,12 @@
+export interface Attribute {
+  name: string;
+  type: string;
+  isPrimary?: boolean;
+}
+
 export interface Entity {
   name: string;
-  attributes: {
-    name: string;
-    type: string;
-    isPrimary?: boolean;
-  }[];
+  attributes: Attribute[];
 }
 
 export interface Relationship {

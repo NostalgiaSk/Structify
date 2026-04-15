@@ -25,12 +25,14 @@ export function generateErDiagram(result: GeneratedResult): string {
         const safeName = sanitize(entity.name);
         if (!safeName) return;
         lines.push(`    ${safeName} {`);
-        entity.attributes.forEach((attr) => {
-            const safeType = sanitizeType(attr.type) || 'string';
-            const safeProp = sanitize(attr.name) || 'field';
-            const pk = attr.isPrimary ? ' PK' : '';
-            lines.push(`        ${safeType} ${safeProp}${pk}`);
-        });
+        entity.attributes
+            .filter((attr) => attr.name.trim() && attr.type.trim())
+            .forEach((attr) => {
+                const safeType = sanitizeType(attr.type) || 'string';
+                const safeProp = sanitize(attr.name) || 'field';
+                const pk = attr.isPrimary ? ' PK' : '';
+                lines.push(`        ${safeType} ${safeProp}${pk}`);
+            });
         lines.push('    }');
     });
 
